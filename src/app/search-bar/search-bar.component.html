@@ -1,0 +1,7 @@
+<mat-toolbar class="nav-searchbar">
+    <span><img src="../assets/SukhenLogotransparent.png"></span>
+    <form [formGroup]="searchGameForm" (ngSubmit)="onSubmit(searchGameForm)">
+        <input type="text" formControlName = "search" placeholder="Search 500,000+ games" class="search-game" [(ngModel)]="search">
+        <button type="submit">Search</button>
+    </form>
+</mat-toolbar>

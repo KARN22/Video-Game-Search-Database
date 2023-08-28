@@ -1,0 +1,42 @@
+<div class="game-tabs">
+    <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
+        <mat-tab label="About">
+            <p *ngIf="gameInfo.parent_platforms?.length" class="game-tabs-par">
+                Platforms:<span
+                    *ngFor="let gameInfo of gameInfo.parent_platforms; let last = last">{{gameInfo.platform.name}}<span
+                        *ngIf="!last">, </span></span>
+            </p>
+            <p *ngIf="gameInfo.publishers?.length" class="game-tabs-par">
+                Publishers:<span *ngFor="let publisher of gameInfo.publishers; let last = last">{{publisher.name}}<span
+                        *ngIf="!last">, </span></span>
+            </p>
+            <p *ngIf="gameInfo.website" class="game-tabs-par">
+                Website:
+                <a class="game-tabs-link" href="{{gameInfo.website}}" target="_blank">{{gameInfo.website}}</a>
+            </p>
+            <div class="game-description" [innerHtml]="gameInfo.description"></div>
+            <p class="game-tabs-votes">
+                <ng-container *ngFor="let rating of gameInfo.ratings">
+                    <span *ngIf="rating.title === 'exceptional'">
+                        <mat-icon class="game-votes-up">thumb_up</mat-icon>
+                        <span class="game-votes-count">{{ rating.count || 0 }}</span>
+                    </span>
+                    <span *ngIf="rating.title === 'skip'">
+                        <mat-icon class="game-votes-down">thumb_down</mat-icon>
+                        <span class="game-votes-count">{{ rating.count || 0 }}</span>
+                    </span>
+                </ng-container>
+            </p>
+        </mat-tab>
+        <mat-tab label="Screenshots" *ngIf="gameScreenShots.results?.length">
+            <img *ngFor="let screenshot of gameScreenShots.results" src="{{screenshot.image}}" alt="screenshot"
+                class="game-screenshot">
+        </mat-tab>
+        <mat-tab label="Trailers" *ngIf="gameTrailers.results?.length">
+            <video class="game-trailer" controls *ngFor="let trailer of gameTrailers.results">
+                <source src="{{trailer.data?.max}}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </mat-tab>
+    </mat-tab-group>
+</div>
